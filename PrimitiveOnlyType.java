@@ -2,14 +2,7 @@
 public class PrimitiveOnlyType {
 
 	public int testInteger;
-	//private String testString;
+	private short testShort;
 	
-	
-	PrimitiveOnlyType(int testInteger){
-		
-		this.testInteger = testInteger;
-		//this.testString = testString;
-		
-	}
 	
 }

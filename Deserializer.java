@@ -1,7 +1,10 @@
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,6 +55,7 @@ public class Deserializer {
 			
 			Object obj = null; 
 			
+			
 			try {
 				Class objClass = Class.forName(currentElement.getAttributeValue("class"));
 				
@@ -59,14 +63,21 @@ public class Deserializer {
 					obj = Array.newInstance(objClass.getComponentType(), Integer.valueOf(currentElement.getAttributeValue("length")));
 				}
 				else{
-					obj = objClass.newInstance();
+					
+					Constructor cons = objClass.getDeclaredConstructor(new Class<?>[0]);
+					cons.setAccessible(true);
+					obj = cons.newInstance(new Object[] { });
+					
 				}
 				IDsToObjects.put(Integer.valueOf(currentElement.getAttributeValue("id")), obj);
 			
 			
-			} catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+			}
+
+			catch (ClassNotFoundException | IllegalAccessException | NoSuchMethodException | SecurityException | IllegalArgumentException | InvocationTargetException | InstantiationException e) {
 				e.printStackTrace();
 			}
+			
 		}
 		
 		
@@ -148,7 +159,8 @@ public class Deserializer {
 				try {
 					f.set(obj, UtilityMethods.toObject(f.getType(), fieldElement.getChild("value").getText()));
 				} catch (IllegalArgumentException | IllegalAccessException e) {
-					e.printStackTrace();
+					System.out.println("Don't set final fields");
+
 				}
 				
 				
@@ -158,7 +170,7 @@ public class Deserializer {
 					try {
 						f.set(obj, IDsToObjects.get(Integer.valueOf(fieldElement.getChild("reference").getText())));
 					} catch (IllegalArgumentException | IllegalAccessException e) {
-						e.printStackTrace();
+						System.out.println("Dont set final fields");
 					}
 			}
 			
