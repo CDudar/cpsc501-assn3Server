@@ -84,10 +84,10 @@ public class ObjectInspector
 	
 	//inspect the current classes various components
 
-	inspectConstructors(obj, ObjClass, objectsToInspect);
+	//inspectConstructors(obj, ObjClass, objectsToInspect);
 	inspectFields(obj, ObjClass,objectsToInspect);
-	inspectMethods(obj, ObjClass, objectsToInspect);	
-	inspectInterfaces(obj, ObjClass, objectsToInspect);	
+	//inspectMethods(obj, ObjClass, objectsToInspect);	
+	//inspectInterfaces(obj, ObjClass, objectsToInspect);	
 	
 	System.out.println(objectsToInspect.size() + " objects found");
 
@@ -455,8 +455,8 @@ public class ObjectInspector
     	System.out.println("------Done Fields------");
     	
     	//Ascend and print hierarchy of fields
-		if(ObjClass.getSuperclass() != null)
-		    inspectFields(obj, ObjClass.getSuperclass() , objectsToInspect);
+		//if(ObjClass.getSuperclass() != null)
+		//    inspectFields(obj, ObjClass.getSuperclass() , objectsToInspect);
     }
     
     //Used for test code

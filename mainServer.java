@@ -45,17 +45,16 @@ public class mainServer {
 		}
 		//Choose a document to inspect, show all the objects in that docs corresponding list of objects
 	
+		Asst2TestDriver driver;
 		try {
-			Asst2TestDriver driver = new Asst2TestDriver("ObjectInspector", true);
-			
-			for(Object obj : objectsReceived){
-				driver.runTest(obj);
-			}
-			
-			
+			driver = new Asst2TestDriver("ObjectInspector", true);
+			Visualizer vis = new Visualizer();
+			vis.visualizeObjects(objectsReceived, driver);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+
 		
 	}
 	

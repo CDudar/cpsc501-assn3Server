@@ -130,7 +130,7 @@ public class WebServer extends Thread {
 		System.out.println();
 		System.out.println("shutting down the server...");
 		this.shutdown();
-		keyboard.close();
+		
 		
 		System.out.println("server stopped");
 	}
